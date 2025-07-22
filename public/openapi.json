@@ -1,0 +1,2088 @@
+
+{
+
+    "openapi": "3.1.0",
+    "info": {
+          "title": "FastAPI",
+          "version": "0.1.0"
+    },
+    "paths": {
+          "/": {
+                "get": {
+                      "summary": "Read Root",
+                      "operationId": "read_root__get",
+                      "responses": {
+                            "200": {
+                                  "description": "Successful Response",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": { }
+                                        }
+                                  }
+                            }
+                      }
+                }
+          },
+          "/users/": {
+                "post": {
+                      "tags": [
+                            "Users"
+                      ],
+                      "summary": "Create User",
+                      "description": "Create a new user.",
+                      "operationId": "create_user_users__post",
+                      "requestBody": {
+                            "required": true,
+                            "content": {
+                                  "application/json": {
+                                        "schema": {
+                                              "$ref": "#/components/schemas/UserCreate"
+                                        }
+                                  }
+                            }
+                      },
+                      "responses": {
+                            "201": {
+                                  "description": "Successful Response",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "$ref": "#/components/schemas/UserSchema"
+                                              }
+                                        }
+                                  }
+                            },
+                            "422": {
+                                  "description": "Validation Error",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                              }
+                                        }
+                                  }
+                            }
+                      }
+                },
+                "get": {
+                      "tags": [
+                            "Users"
+                      ],
+                      "summary": "List Users",
+                      "description": "Retrieve a list of all users.",
+                      "operationId": "list_users_users__get",
+                      "parameters": [
+                            {
+                                  "name": "limit",
+                                  "in": "query",
+                                  "required": false,
+                                  "schema": {
+                                        "type": "integer",
+                                        "default": 100,
+                                        "title": "Limit"
+                                  }
+                            },
+                            {
+                                  "name": "offset",
+                                  "in": "query",
+                                  "required": false,
+                                  "schema": {
+                                        "type": "integer",
+                                        "default": 0,
+                                        "title": "Offset"
+                                  }
+                            }
+                      ],
+                      "responses": {
+                            "200": {
+                                  "description": "Successful Response",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "type": "array",
+                                                    "items": {
+                                                          "$ref": "#/components/schemas/UserSchema"
+                                                    },
+                                                    "title": "Response List Users Users  Get"
+                                              }
+                                        }
+                                  }
+                            },
+                            "422": {
+                                  "description": "Validation Error",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                              }
+                                        }
+                                  }
+                            }
+                      }
+                }
+          },
+          "/users/{user_id}": {
+                "get": {
+                      "tags": [
+                            "Users"
+                      ],
+                      "summary": "Get User",
+                      "description": "Retrieve a single user by ID.",
+                      "operationId": "get_user_users__user_id__get",
+                      "parameters": [
+                            {
+                                  "name": "user_id",
+                                  "in": "path",
+                                  "required": true,
+                                  "schema": {
+                                        "type": "integer",
+                                        "title": "User Id"
+                                  }
+                            }
+                      ],
+                      "responses": {
+                            "200": {
+                                  "description": "Successful Response",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "$ref": "#/components/schemas/UserSchema"
+                                              }
+                                        }
+                                  }
+                            },
+                            "422": {
+                                  "description": "Validation Error",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                              }
+                                        }
+                                  }
+                            }
+                      }
+                },
+                "put": {
+                      "tags": [
+                            "Users"
+                      ],
+                      "summary": "Update User",
+                      "description": "Update an existing user by ID.",
+                      "operationId": "update_user_users__user_id__put",
+                      "parameters": [
+                            {
+                                  "name": "user_id",
+                                  "in": "path",
+                                  "required": true,
+                                  "schema": {
+                                        "type": "integer",
+                                        "title": "User Id"
+                                  }
+                            },
+                            {
+                                  "name": "x-admin-password",
+                                  "in": "header",
+                                  "required": true,
+                                  "schema": {
+                                        "type": "string",
+                                        "title": "X-Admin-Password"
+                                  }
+                            }
+                      ],
+                      "requestBody": {
+                            "required": true,
+                            "content": {
+                                  "application/json": {
+                                        "schema": {
+                                              "$ref": "#/components/schemas/UserUpdate"
+                                        }
+                                  }
+                            }
+                      },
+                      "responses": {
+                            "200": {
+                                  "description": "Successful Response",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "$ref": "#/components/schemas/UserSchema"
+                                              }
+                                        }
+                                  }
+                            },
+                            "422": {
+                                  "description": "Validation Error",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                              }
+                                        }
+                                  }
+                            }
+                      }
+                },
+                "delete": {
+                      "tags": [
+                            "Users"
+                      ],
+                      "summary": "Delete User",
+                      "description": "Delete a user by ID.",
+                      "operationId": "delete_user_users__user_id__delete",
+                      "parameters": [
+                            {
+                                  "name": "user_id",
+                                  "in": "path",
+                                  "required": true,
+                                  "schema": {
+                                        "type": "integer",
+                                        "title": "User Id"
+                                  }
+                            },
+                            {
+                                  "name": "x-admin-password",
+                                  "in": "header",
+                                  "required": true,
+                                  "schema": {
+                                        "type": "string",
+                                        "title": "X-Admin-Password"
+                                  }
+                            }
+                      ],
+                      "responses": {
+                            "204": {
+                                  "description": "Successful Response"
+                            },
+                            "422": {
+                                  "description": "Validation Error",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                              }
+                                        }
+                                  }
+                            }
+                      }
+                }
+          },
+          "/roles/": {
+                "post": {
+                      "tags": [
+                            "Roles"
+                      ],
+                      "summary": "Create Role",
+                      "description": "Create a new role.",
+                      "operationId": "create_role_roles__post",
+                      "parameters": [
+                            {
+                                  "name": "x-admin-password",
+                                  "in": "header",
+                                  "required": true,
+                                  "schema": {
+                                        "type": "string",
+                                        "title": "X-Admin-Password"
+                                  }
+                            }
+                      ],
+                      "requestBody": {
+                            "required": true,
+                            "content": {
+                                  "application/json": {
+                                        "schema": {
+                                              "$ref": "#/components/schemas/RoleCreate"
+                                        }
+                                  }
+                            }
+                      },
+                      "responses": {
+                            "201": {
+                                  "description": "Successful Response",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "$ref": "#/components/schemas/RoleResponse"
+                                              }
+                                        }
+                                  }
+                            },
+                            "422": {
+                                  "description": "Validation Error",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                              }
+                                        }
+                                  }
+                            }
+                      }
+                },
+                "get": {
+                      "tags": [
+                            "Roles"
+                      ],
+                      "summary": "List Roles",
+                      "description": "Retrieve a list of all roles.",
+                      "operationId": "list_roles_roles__get",
+                      "parameters": [
+                            {
+                                  "name": "limit",
+                                  "in": "query",
+                                  "required": false,
+                                  "schema": {
+                                        "type": "integer",
+                                        "default": 100,
+                                        "title": "Limit"
+                                  }
+                            },
+                            {
+                                  "name": "offset",
+                                  "in": "query",
+                                  "required": false,
+                                  "schema": {
+                                        "type": "integer",
+                                        "default": 0,
+                                        "title": "Offset"
+                                  }
+                            }
+                      ],
+                      "responses": {
+                            "200": {
+                                  "description": "Successful Response",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "type": "array",
+                                                    "items": {
+                                                          "$ref": "#/components/schemas/RoleResponse"
+                                                    },
+                                                    "title": "Response List Roles Roles  Get"
+                                              }
+                                        }
+                                  }
+                            },
+                            "422": {
+                                  "description": "Validation Error",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                              }
+                                        }
+                                  }
+                            }
+                      }
+                }
+          },
+          "/roles/{role_id}": {
+                "get": {
+                      "tags": [
+                            "Roles"
+                      ],
+                      "summary": "Get Role",
+                      "description": "Retrieve a single role by ID.",
+                      "operationId": "get_role_roles__role_id__get",
+                      "parameters": [
+                            {
+                                  "name": "role_id",
+                                  "in": "path",
+                                  "required": true,
+                                  "schema": {
+                                        "type": "integer",
+                                        "title": "Role Id"
+                                  }
+                            }
+                      ],
+                      "responses": {
+                            "200": {
+                                  "description": "Successful Response",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "$ref": "#/components/schemas/RoleResponse"
+                                              }
+                                        }
+                                  }
+                            },
+                            "422": {
+                                  "description": "Validation Error",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                              }
+                                        }
+                                  }
+                            }
+                      }
+                },
+                "put": {
+                      "tags": [
+                            "Roles"
+                      ],
+                      "summary": "Update Role",
+                      "description": "Update an existing role by ID.",
+                      "operationId": "update_role_roles__role_id__put",
+                      "parameters": [
+                            {
+                                  "name": "role_id",
+                                  "in": "path",
+                                  "required": true,
+                                  "schema": {
+                                        "type": "integer",
+                                        "title": "Role Id"
+                                  }
+                            },
+                            {
+                                  "name": "x-admin-password",
+                                  "in": "header",
+                                  "required": true,
+                                  "schema": {
+                                        "type": "string",
+                                        "title": "X-Admin-Password"
+                                  }
+                            }
+                      ],
+                      "requestBody": {
+                            "required": true,
+                            "content": {
+                                  "application/json": {
+                                        "schema": {
+                                              "$ref": "#/components/schemas/RoleUpdate"
+                                        }
+                                  }
+                            }
+                      },
+                      "responses": {
+                            "200": {
+                                  "description": "Successful Response",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "$ref": "#/components/schemas/RoleResponse"
+                                              }
+                                        }
+                                  }
+                            },
+                            "422": {
+                                  "description": "Validation Error",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                              }
+                                        }
+                                  }
+                            }
+                      }
+                },
+                "delete": {
+                      "tags": [
+                            "Roles"
+                      ],
+                      "summary": "Delete Role",
+                      "description": "Delete a role by ID.",
+                      "operationId": "delete_role_roles__role_id__delete",
+                      "parameters": [
+                            {
+                                  "name": "role_id",
+                                  "in": "path",
+                                  "required": true,
+                                  "schema": {
+                                        "type": "integer",
+                                        "title": "Role Id"
+                                  }
+                            },
+                            {
+                                  "name": "x-admin-password",
+                                  "in": "header",
+                                  "required": true,
+                                  "schema": {
+                                        "type": "string",
+                                        "title": "X-Admin-Password"
+                                  }
+                            }
+                      ],
+                      "responses": {
+                            "204": {
+                                  "description": "Successful Response"
+                            },
+                            "422": {
+                                  "description": "Validation Error",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                              }
+                                        }
+                                  }
+                            }
+                      }
+                }
+          },
+          "/sessions/": {
+                "post": {
+                      "tags": [
+                            "Sessions"
+                      ],
+                      "summary": "Create Session",
+                      "description": "Create a new session.",
+                      "operationId": "create_session_sessions__post",
+                      "requestBody": {
+                            "required": true,
+                            "content": {
+                                  "application/json": {
+                                        "schema": {
+                                              "$ref": "#/components/schemas/SessionCreate"
+                                        }
+                                  }
+                            }
+                      },
+                      "responses": {
+                            "201": {
+                                  "description": "Successful Response",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "$ref": "#/components/schemas/SessionResponse"
+                                              }
+                                        }
+                                  }
+                            },
+                            "422": {
+                                  "description": "Validation Error",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                              }
+                                        }
+                                  }
+                            }
+                      }
+                },
+                "get": {
+                      "tags": [
+                            "Sessions"
+                      ],
+                      "summary": "List Sessions",
+                      "description": "Retrieve a list of all sessions.",
+                      "operationId": "list_sessions_sessions__get",
+                      "parameters": [
+                            {
+                                  "name": "limit",
+                                  "in": "query",
+                                  "required": false,
+                                  "schema": {
+                                        "type": "integer",
+                                        "default": 100,
+                                        "title": "Limit"
+                                  }
+                            },
+                            {
+                                  "name": "offset",
+                                  "in": "query",
+                                  "required": false,
+                                  "schema": {
+                                        "type": "integer",
+                                        "default": 0,
+                                        "title": "Offset"
+                                  }
+                            }
+                      ],
+                      "responses": {
+                            "200": {
+                                  "description": "Successful Response",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "type": "array",
+                                                    "items": {
+                                                          "$ref": "#/components/schemas/SessionResponse"
+                                                    },
+                                                    "title": "Response List Sessions Sessions  Get"
+                                              }
+                                        }
+                                  }
+                            },
+                            "422": {
+                                  "description": "Validation Error",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                              }
+                                        }
+                                  }
+                            }
+                      }
+                }
+          },
+          "/sessions/{session_id}": {
+                "get": {
+                      "tags": [
+                            "Sessions"
+                      ],
+                      "summary": "Get Session",
+                      "description": "Retrieve a single session by ID.",
+                      "operationId": "get_session_sessions__session_id__get",
+                      "parameters": [
+                            {
+                                  "name": "session_id",
+                                  "in": "path",
+                                  "required": true,
+                                  "schema": {
+                                        "type": "integer",
+                                        "title": "Session Id"
+                                  }
+                            }
+                      ],
+                      "responses": {
+                            "200": {
+                                  "description": "Successful Response",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "$ref": "#/components/schemas/SessionResponse"
+                                              }
+                                        }
+                                  }
+                            },
+                            "422": {
+                                  "description": "Validation Error",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                              }
+                                        }
+                                  }
+                            }
+                      }
+                },
+                "put": {
+                      "tags": [
+                            "Sessions"
+                      ],
+                      "summary": "Update Session",
+                      "description": "Update an existing session by ID.",
+                      "operationId": "update_session_sessions__session_id__put",
+                      "parameters": [
+                            {
+                                  "name": "session_id",
+                                  "in": "path",
+                                  "required": true,
+                                  "schema": {
+                                        "type": "integer",
+                                        "title": "Session Id"
+                                  }
+                            },
+                            {
+                                  "name": "x-admin-password",
+                                  "in": "header",
+                                  "required": true,
+                                  "schema": {
+                                        "type": "string",
+                                        "title": "X-Admin-Password"
+                                  }
+                            }
+                      ],
+                      "requestBody": {
+                            "required": true,
+                            "content": {
+                                  "application/json": {
+                                        "schema": {
+                                              "$ref": "#/components/schemas/SessionUpdate"
+                                        }
+                                  }
+                            }
+                      },
+                      "responses": {
+                            "200": {
+                                  "description": "Successful Response",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "$ref": "#/components/schemas/SessionResponse"
+                                              }
+                                        }
+                                  }
+                            },
+                            "422": {
+                                  "description": "Validation Error",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                              }
+                                        }
+                                  }
+                            }
+                      }
+                },
+                "delete": {
+                      "tags": [
+                            "Sessions"
+                      ],
+                      "summary": "Delete Session",
+                      "description": "Delete a session by ID.",
+                      "operationId": "delete_session_sessions__session_id__delete",
+                      "parameters": [
+                            {
+                                  "name": "session_id",
+                                  "in": "path",
+                                  "required": true,
+                                  "schema": {
+                                        "type": "integer",
+                                        "title": "Session Id"
+                                  }
+                            },
+                            {
+                                  "name": "x-admin-password",
+                                  "in": "header",
+                                  "required": true,
+                                  "schema": {
+                                        "type": "string",
+                                        "title": "X-Admin-Password"
+                                  }
+                            }
+                      ],
+                      "responses": {
+                            "204": {
+                                  "description": "Successful Response"
+                            },
+                            "422": {
+                                  "description": "Validation Error",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                              }
+                                        }
+                                  }
+                            }
+                      }
+                }
+          },
+          "/dialog_history/": {
+                "post": {
+                      "tags": [
+                            "Dialog History"
+                      ],
+                      "summary": "Create Dialog History",
+                      "description": "Create a new dialog history entry.",
+                      "operationId": "create_dialog_history_dialog_history__post",
+                      "requestBody": {
+                            "required": true,
+                            "content": {
+                                  "application/json": {
+                                        "schema": {
+                                              "$ref": "#/components/schemas/DialogHistoryCreate"
+                                        }
+                                  }
+                            }
+                      },
+                      "responses": {
+                            "201": {
+                                  "description": "Successful Response",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "$ref": "#/components/schemas/DialogHistoryResponse"
+                                              }
+                                        }
+                                  }
+                            },
+                            "422": {
+                                  "description": "Validation Error",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                              }
+                                        }
+                                  }
+                            }
+                      }
+                },
+                "get": {
+                      "tags": [
+                            "Dialog History"
+                      ],
+                      "summary": "List Dialog History",
+                      "description": "Retrieve a list of all dialog history entries.",
+                      "operationId": "list_dialog_history_dialog_history__get",
+                      "parameters": [
+                            {
+                                  "name": "limit",
+                                  "in": "query",
+                                  "required": false,
+                                  "schema": {
+                                        "type": "integer",
+                                        "default": 100,
+                                        "title": "Limit"
+                                  }
+                            },
+                            {
+                                  "name": "offset",
+                                  "in": "query",
+                                  "required": false,
+                                  "schema": {
+                                        "type": "integer",
+                                        "default": 0,
+                                        "title": "Offset"
+                                  }
+                            }
+                      ],
+                      "responses": {
+                            "200": {
+                                  "description": "Successful Response",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "type": "array",
+                                                    "items": {
+                                                          "$ref": "#/components/schemas/DialogHistoryResponse"
+                                                    },
+                                                    "title": "Response List Dialog History Dialog History  Get"
+                                              }
+                                        }
+                                  }
+                            },
+                            "422": {
+                                  "description": "Validation Error",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                              }
+                                        }
+                                  }
+                            }
+                      }
+                }
+          },
+          "/dialog_history/{dialog_history_id}": {
+                "get": {
+                      "tags": [
+                            "Dialog History"
+                      ],
+                      "summary": "Get Dialog History",
+                      "description": "Retrieve a single dialog history entry by ID.",
+                      "operationId": "get_dialog_history_dialog_history__dialog_history_id__get",
+                      "parameters": [
+                            {
+                                  "name": "dialog_history_id",
+                                  "in": "path",
+                                  "required": true,
+                                  "schema": {
+                                        "type": "integer",
+                                        "title": "Dialog History Id"
+                                  }
+                            }
+                      ],
+                      "responses": {
+                            "200": {
+                                  "description": "Successful Response",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "$ref": "#/components/schemas/DialogHistoryResponse"
+                                              }
+                                        }
+                                  }
+                            },
+                            "422": {
+                                  "description": "Validation Error",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                              }
+                                        }
+                                  }
+                            }
+                      }
+                },
+                "put": {
+                      "tags": [
+                            "Dialog History"
+                      ],
+                      "summary": "Update Dialog History",
+                      "description": "Update an existing dialog history entry by ID.",
+                      "operationId": "update_dialog_history_dialog_history__dialog_history_id__put",
+                      "parameters": [
+                            {
+                                  "name": "dialog_history_id",
+                                  "in": "path",
+                                  "required": true,
+                                  "schema": {
+                                        "type": "integer",
+                                        "title": "Dialog History Id"
+                                  }
+                            },
+                            {
+                                  "name": "x-admin-password",
+                                  "in": "header",
+                                  "required": true,
+                                  "schema": {
+                                        "type": "string",
+                                        "title": "X-Admin-Password"
+                                  }
+                            }
+                      ],
+                      "requestBody": {
+                            "required": true,
+                            "content": {
+                                  "application/json": {
+                                        "schema": {
+                                              "$ref": "#/components/schemas/DialogHistoryUpdate"
+                                        }
+                                  }
+                            }
+                      },
+                      "responses": {
+                            "200": {
+                                  "description": "Successful Response",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "$ref": "#/components/schemas/DialogHistoryResponse"
+                                              }
+                                        }
+                                  }
+                            },
+                            "422": {
+                                  "description": "Validation Error",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                              }
+                                        }
+                                  }
+                            }
+                      }
+                },
+                "delete": {
+                      "tags": [
+                            "Dialog History"
+                      ],
+                      "summary": "Delete Dialog History",
+                      "description": "Delete a dialog history entry by ID.",
+                      "operationId": "delete_dialog_history_dialog_history__dialog_history_id__delete",
+                      "parameters": [
+                            {
+                                  "name": "dialog_history_id",
+                                  "in": "path",
+                                  "required": true,
+                                  "schema": {
+                                        "type": "integer",
+                                        "title": "Dialog History Id"
+                                  }
+                            },
+                            {
+                                  "name": "x-admin-password",
+                                  "in": "header",
+                                  "required": true,
+                                  "schema": {
+                                        "type": "string",
+                                        "title": "X-Admin-Password"
+                                  }
+                            }
+                      ],
+                      "responses": {
+                            "204": {
+                                  "description": "Successful Response"
+                            },
+                            "422": {
+                                  "description": "Validation Error",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                              }
+                                        }
+                                  }
+                            }
+                      }
+                }
+          },
+          "/faqs/": {
+                "post": {
+                      "tags": [
+                            "FAQs"
+                      ],
+                      "summary": "Create Faq",
+                      "description": "Create a new FAQ entry.",
+                      "operationId": "create_faq_faqs__post",
+                      "parameters": [
+                            {
+                                  "name": "x-admin-password",
+                                  "in": "header",
+                                  "required": true,
+                                  "schema": {
+                                        "type": "string",
+                                        "title": "X-Admin-Password"
+                                  }
+                            }
+                      ],
+                      "requestBody": {
+                            "required": true,
+                            "content": {
+                                  "application/json": {
+                                        "schema": {
+                                              "$ref": "#/components/schemas/FAQCreate"
+                                        }
+                                  }
+                            }
+                      },
+                      "responses": {
+                            "201": {
+                                  "description": "Successful Response",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "$ref": "#/components/schemas/FAQResponse"
+                                              }
+                                        }
+                                  }
+                            },
+                            "422": {
+                                  "description": "Validation Error",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                              }
+                                        }
+                                  }
+                            }
+                      }
+                },
+                "get": {
+                      "tags": [
+                            "FAQs"
+                      ],
+                      "summary": "List Faqs",
+                      "description": "Retrieve a list of all FAQ entries.",
+                      "operationId": "list_faqs_faqs__get",
+                      "parameters": [
+                            {
+                                  "name": "limit",
+                                  "in": "query",
+                                  "required": false,
+                                  "schema": {
+                                        "type": "integer",
+                                        "default": 100,
+                                        "title": "Limit"
+                                  }
+                            },
+                            {
+                                  "name": "offset",
+                                  "in": "query",
+                                  "required": false,
+                                  "schema": {
+                                        "type": "integer",
+                                        "default": 0,
+                                        "title": "Offset"
+                                  }
+                            }
+                      ],
+                      "responses": {
+                            "200": {
+                                  "description": "Successful Response",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "type": "array",
+                                                    "items": {
+                                                          "$ref": "#/components/schemas/FAQResponse"
+                                                    },
+                                                    "title": "Response List Faqs Faqs  Get"
+                                              }
+                                        }
+                                  }
+                            },
+                            "422": {
+                                  "description": "Validation Error",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                              }
+                                        }
+                                  }
+                            }
+                      }
+                }
+          },
+          "/faqs/{faq_id}": {
+                "get": {
+                      "tags": [
+                            "FAQs"
+                      ],
+                      "summary": "Get Faq",
+                      "description": "Retrieve a single FAQ entry by ID.",
+                      "operationId": "get_faq_faqs__faq_id__get",
+                      "parameters": [
+                            {
+                                  "name": "faq_id",
+                                  "in": "path",
+                                  "required": true,
+                                  "schema": {
+                                        "type": "integer",
+                                        "title": "Faq Id"
+                                  }
+                            }
+                      ],
+                      "responses": {
+                            "200": {
+                                  "description": "Successful Response",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "$ref": "#/components/schemas/FAQResponse"
+                                              }
+                                        }
+                                  }
+                            },
+                            "422": {
+                                  "description": "Validation Error",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                              }
+                                        }
+                                  }
+                            }
+                      }
+                },
+                "put": {
+                      "tags": [
+                            "FAQs"
+                      ],
+                      "summary": "Update Faq",
+                      "description": "Update an existing FAQ entry by ID.",
+                      "operationId": "update_faq_faqs__faq_id__put",
+                      "parameters": [
+                            {
+                                  "name": "faq_id",
+                                  "in": "path",
+                                  "required": true,
+                                  "schema": {
+                                        "type": "integer",
+                                        "title": "Faq Id"
+                                  }
+                            },
+                            {
+                                  "name": "x-admin-password",
+                                  "in": "header",
+                                  "required": true,
+                                  "schema": {
+                                        "type": "string",
+                                        "title": "X-Admin-Password"
+                                  }
+                            }
+                      ],
+                      "requestBody": {
+                            "required": true,
+                            "content": {
+                                  "application/json": {
+                                        "schema": {
+                                              "$ref": "#/components/schemas/FAQUpdate"
+                                        }
+                                  }
+                            }
+                      },
+                      "responses": {
+                            "200": {
+                                  "description": "Successful Response",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "$ref": "#/components/schemas/FAQResponse"
+                                              }
+                                        }
+                                  }
+                            },
+                            "422": {
+                                  "description": "Validation Error",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                              }
+                                        }
+                                  }
+                            }
+                      }
+                },
+                "delete": {
+                      "tags": [
+                            "FAQs"
+                      ],
+                      "summary": "Delete Faq",
+                      "description": "Delete an FAQ entry by ID.",
+                      "operationId": "delete_faq_faqs__faq_id__delete",
+                      "parameters": [
+                            {
+                                  "name": "faq_id",
+                                  "in": "path",
+                                  "required": true,
+                                  "schema": {
+                                        "type": "integer",
+                                        "title": "Faq Id"
+                                  }
+                            },
+                            {
+                                  "name": "x-admin-password",
+                                  "in": "header",
+                                  "required": true,
+                                  "schema": {
+                                        "type": "string",
+                                        "title": "X-Admin-Password"
+                                  }
+                            }
+                      ],
+                      "responses": {
+                            "204": {
+                                  "description": "Successful Response"
+                            },
+                            "422": {
+                                  "description": "Validation Error",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                              }
+                                        }
+                                  }
+                            }
+                      }
+                }
+          },
+          "/chat/": {
+                "post": {
+                      "tags": [
+                            "Chat"
+                      ],
+                      "summary": "Chat With Ai",
+                      "operationId": "chat_with_ai_chat__post",
+                      "requestBody": {
+                            "content": {
+                                  "application/json": {
+                                        "schema": {
+                                              "$ref": "#/components/schemas/ChatRequest"
+                                        }
+                                  }
+                            },
+                            "required": true
+                      },
+                      "responses": {
+                            "200": {
+                                  "description": "Successful Response",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "$ref": "#/components/schemas/ChatResponse"
+                                              }
+                                        }
+                                  }
+                            },
+                            "422": {
+                                  "description": "Validation Error",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                              }
+                                        }
+                                  }
+                            }
+                      }
+                }
+          },
+          "/chat/welcome_video/{role_id}": {
+                "get": {
+                      "tags": [
+                            "Chat"
+                      ],
+                      "summary": "Get Welcome Video",
+                      "description": "Retrieves the welcome video for a given role.\nThis is a placeholder. In a real scenario, this would trigger D-ID video generation\nor retrieve a pre-generated video URL.",
+                      "operationId": "get_welcome_video_chat_welcome_video__role_id__get",
+                      "parameters": [
+                            {
+                                  "name": "role_id",
+                                  "in": "path",
+                                  "required": true,
+                                  "schema": {
+                                        "type": "integer",
+                                        "title": "Role Id"
+                                  }
+                            }
+                      ],
+                      "responses": {
+                            "200": {
+                                  "description": "Successful Response",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "$ref": "#/components/schemas/ChatResponse"
+                                              }
+                                        }
+                                  }
+                            },
+                            "422": {
+                                  "description": "Validation Error",
+                                  "content": {
+                                        "application/json": {
+                                              "schema": {
+                                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                              }
+                                        }
+                                  }
+                            }
+                      }
+                }
+          }
+    },
+    "components": {
+          "schemas": {
+                "ChatRequest": {
+                      "properties": {
+                            "session_id": {
+                                  "type": "integer",
+                                  "title": "Session Id",
+                                  "default": 1
+                            },
+                            "role_id": {
+                                  "anyOf": [
+                                        {
+                                              "type": "integer"
+                                        },
+                                        {
+                                              "type": "null"
+                                        }
+                                  ],
+                                  "title": "Role Id"
+                            },
+                            "user_message": {
+                                  "type": "string",
+                                  "title": "User Message"
+                            }
+                      },
+                      "type": "object",
+                      "required": [
+                            "user_message"
+                      ],
+                      "title": "ChatRequest"
+                },
+                "ChatResponse": {
+                      "properties": {
+                            "session_id": {
+                                  "type": "integer",
+                                  "title": "Session Id"
+                            },
+                            "response_text": {
+                                  "type": "string",
+                                  "title": "Response Text"
+                            },
+                            "audio_url": {
+                                  "anyOf": [
+                                        {
+                                              "type": "string"
+                                        },
+                                        {
+                                              "type": "null"
+                                        }
+                                  ],
+                                  "title": "Audio Url"
+                            },
+                            "video_url": {
+                                  "anyOf": [
+                                        {
+                                              "type": "string"
+                                        },
+                                        {
+                                              "type": "null"
+                                        }
+                                  ],
+                                  "title": "Video Url"
+                            }
+                      },
+                      "type": "object",
+                      "required": [
+                            "session_id",
+                            "response_text"
+                      ],
+                      "title": "ChatResponse"
+                },
+                "DialogHistoryCreate": {
+                      "properties": {
+                            "session_id": {
+                                  "type": "integer",
+                                  "title": "Session Id"
+                            },
+                            "sender_type": {
+                                  "type": "string",
+                                  "maxLength": 50,
+                                  "title": "Sender Type"
+                            },
+                            "message_text": {
+                                  "type": "string",
+                                  "title": "Message Text"
+                            },
+                            "video_url": {
+                                  "anyOf": [
+                                        {
+                                              "type": "string",
+                                              "maxLength": 255
+                                        },
+                                        {
+                                              "type": "null"
+                                        }
+                                  ],
+                                  "title": "Video Url"
+                            }
+                      },
+                      "type": "object",
+                      "required": [
+                            "session_id",
+                            "sender_type",
+                            "message_text"
+                      ],
+                      "title": "DialogHistoryCreate"
+                },
+                "DialogHistoryResponse": {
+                      "properties": {
+                            "session_id": {
+                                  "type": "integer",
+                                  "title": "Session Id"
+                            },
+                            "sender_type": {
+                                  "type": "string",
+                                  "maxLength": 50,
+                                  "title": "Sender Type"
+                            },
+                            "message_text": {
+                                  "type": "string",
+                                  "title": "Message Text"
+                            },
+                            "video_url": {
+                                  "anyOf": [
+                                        {
+                                              "type": "string",
+                                              "maxLength": 255
+                                        },
+                                        {
+                                              "type": "null"
+                                        }
+                                  ],
+                                  "title": "Video Url"
+                            },
+                            "id": {
+                                  "type": "integer",
+                                  "title": "Id"
+                            },
+                            "created_at": {
+                                  "type": "string",
+                                  "format": "date-time",
+                                  "title": "Created At"
+                            }
+                      },
+                      "type": "object",
+                      "required": [
+                            "session_id",
+                            "sender_type",
+                            "message_text",
+                            "id",
+                            "created_at"
+                      ],
+                      "title": "DialogHistoryResponse"
+                },
+                "DialogHistoryUpdate": {
+                      "properties": {
+                            "session_id": {
+                                  "anyOf": [
+                                        {
+                                              "type": "integer"
+                                        },
+                                        {
+                                              "type": "null"
+                                        }
+                                  ],
+                                  "title": "Session Id"
+                            },
+                            "sender_type": {
+                                  "anyOf": [
+                                        {
+                                              "type": "string",
+                                              "maxLength": 50
+                                        },
+                                        {
+                                              "type": "null"
+                                        }
+                                  ],
+                                  "title": "Sender Type"
+                            },
+                            "message_text": {
+                                  "anyOf": [
+                                        {
+                                              "type": "string"
+                                        },
+                                        {
+                                              "type": "null"
+                                        }
+                                  ],
+                                  "title": "Message Text"
+                            },
+                            "video_url": {
+                                  "anyOf": [
+                                        {
+                                              "type": "string",
+                                              "maxLength": 255
+                                        },
+                                        {
+                                              "type": "null"
+                                        }
+                                  ],
+                                  "title": "Video Url"
+                            }
+                      },
+                      "type": "object",
+                      "title": "DialogHistoryUpdate"
+                },
+                "FAQCreate": {
+                      "properties": {
+                            "question": {
+                                  "type": "string",
+                                  "title": "Question"
+                            },
+                            "answer": {
+                                  "type": "string",
+                                  "title": "Answer"
+                            }
+                      },
+                      "type": "object",
+                      "required": [
+                            "question",
+                            "answer"
+                      ],
+                      "title": "FAQCreate"
+                },
+                "FAQResponse": {
+                      "properties": {
+                            "question": {
+                                  "type": "string",
+                                  "title": "Question"
+                            },
+                            "answer": {
+                                  "type": "string",
+                                  "title": "Answer"
+                            },
+                            "id": {
+                                  "type": "integer",
+                                  "title": "Id"
+                            }
+                      },
+                      "type": "object",
+                      "required": [
+                            "question",
+                            "answer",
+                            "id"
+                      ],
+                      "title": "FAQResponse"
+                },
+                "FAQUpdate": {
+                      "properties": {
+                            "question": {
+                                  "anyOf": [
+                                        {
+                                              "type": "string"
+                                        },
+                                        {
+                                              "type": "null"
+                                        }
+                                  ],
+                                  "title": "Question"
+                            },
+                            "answer": {
+                                  "anyOf": [
+                                        {
+                                              "type": "string"
+                                        },
+                                        {
+                                              "type": "null"
+                                        }
+                                  ],
+                                  "title": "Answer"
+                            }
+                      },
+                      "type": "object",
+                      "title": "FAQUpdate"
+                },
+                "HTTPValidationError": {
+                      "properties": {
+                            "detail": {
+                                  "items": {
+                                        "$ref": "#/components/schemas/ValidationError"
+                                  },
+                                  "type": "array",
+                                  "title": "Detail"
+                            }
+                      },
+                      "type": "object",
+                      "title": "HTTPValidationError"
+                },
+                "RoleCreate": {
+                      "properties": {
+                            "name": {
+                                  "type": "string",
+                                  "maxLength": 50,
+                                  "title": "Name"
+                            },
+                            "display_name": {
+                                  "type": "string",
+                                  "maxLength": 100,
+                                  "title": "Display Name"
+                            },
+                            "system_prompt": {
+                                  "type": "string",
+                                  "title": "System Prompt"
+                            },
+                            "elevenlabs_voice_id": {
+                                  "type": "string",
+                                  "maxLength": 100,
+                                  "title": "Elevenlabs Voice Id"
+                            },
+                            "did_avatar_id": {
+                                  "type": "string",
+                                  "maxLength": 100,
+                                  "title": "Did Avatar Id"
+                            }
+                      },
+                      "type": "object",
+                      "required": [
+                            "name",
+                            "display_name",
+                            "system_prompt",
+                            "elevenlabs_voice_id",
+                            "did_avatar_id"
+                      ],
+                      "title": "RoleCreate"
+                },
+                "RoleResponse": {
+                      "properties": {
+                            "name": {
+                                  "type": "string",
+                                  "maxLength": 50,
+                                  "title": "Name"
+                            },
+                            "display_name": {
+                                  "type": "string",
+                                  "maxLength": 100,
+                                  "title": "Display Name"
+                            },
+                            "system_prompt": {
+                                  "type": "string",
+                                  "title": "System Prompt"
+                            },
+                            "elevenlabs_voice_id": {
+                                  "type": "string",
+                                  "maxLength": 100,
+                                  "title": "Elevenlabs Voice Id"
+                            },
+                            "did_avatar_id": {
+                                  "type": "string",
+                                  "maxLength": 100,
+                                  "title": "Did Avatar Id"
+                            },
+                            "id": {
+                                  "type": "integer",
+                                  "title": "Id"
+                            }
+                      },
+                      "type": "object",
+                      "required": [
+                            "name",
+                            "display_name",
+                            "system_prompt",
+                            "elevenlabs_voice_id",
+                            "did_avatar_id",
+                            "id"
+                      ],
+                      "title": "RoleResponse"
+                },
+                "RoleUpdate": {
+                      "properties": {
+                            "name": {
+                                  "anyOf": [
+                                        {
+                                              "type": "string",
+                                              "maxLength": 50
+                                        },
+                                        {
+                                              "type": "null"
+                                        }
+                                  ],
+                                  "title": "Name"
+                            },
+                            "display_name": {
+                                  "anyOf": [
+                                        {
+                                              "type": "string",
+                                              "maxLength": 100
+                                        },
+                                        {
+                                              "type": "null"
+                                        }
+                                  ],
+                                  "title": "Display Name"
+                            },
+                            "system_prompt": {
+                                  "anyOf": [
+                                        {
+                                              "type": "string"
+                                        },
+                                        {
+                                              "type": "null"
+                                        }
+                                  ],
+                                  "title": "System Prompt"
+                            },
+                            "elevenlabs_voice_id": {
+                                  "anyOf": [
+                                        {
+                                              "type": "string",
+                                              "maxLength": 100
+                                        },
+                                        {
+                                              "type": "null"
+                                        }
+                                  ],
+                                  "title": "Elevenlabs Voice Id"
+                            },
+                            "did_avatar_id": {
+                                  "anyOf": [
+                                        {
+                                              "type": "string",
+                                              "maxLength": 100
+                                        },
+                                        {
+                                              "type": "null"
+                                        }
+                                  ],
+                                  "title": "Did Avatar Id"
+                            }
+                      },
+                      "type": "object",
+                      "title": "RoleUpdate"
+                },
+                "SessionCreate": {
+                      "properties": {
+                            "user_id": {
+                                  "type": "integer",
+                                  "title": "User Id"
+                            },
+                            "role_id": {
+                                  "type": "integer",
+                                  "title": "Role Id"
+                            },
+                            "status": {
+                                  "type": "string",
+                                  "maxLength": 50,
+                                  "title": "Status",
+                                  "default": "active"
+                            }
+                      },
+                      "type": "object",
+                      "required": [
+                            "user_id",
+                            "role_id"
+                      ],
+                      "title": "SessionCreate"
+                },
+                "SessionResponse": {
+                      "properties": {
+                            "user_id": {
+                                  "type": "integer",
+                                  "title": "User Id"
+                            },
+                            "role_id": {
+                                  "type": "integer",
+                                  "title": "Role Id"
+                            },
+                            "status": {
+                                  "type": "string",
+                                  "maxLength": 50,
+                                  "title": "Status",
+                                  "default": "active"
+                            },
+                            "id": {
+                                  "type": "integer",
+                                  "title": "Id"
+                            },
+                            "created_at": {
+                                  "type": "string",
+                                  "format": "date-time",
+                                  "title": "Created At"
+                            },
+                            "updated_at": {
+                                  "type": "string",
+                                  "format": "date-time",
+                                  "title": "Updated At"
+                            }
+                      },
+                      "type": "object",
+                      "required": [
+                            "user_id",
+                            "role_id",
+                            "id",
+                            "created_at",
+                            "updated_at"
+                      ],
+                      "title": "SessionResponse"
+                },
+                "SessionUpdate": {
+                      "properties": {
+                            "user_id": {
+                                  "anyOf": [
+                                        {
+                                              "type": "integer"
+                                        },
+                                        {
+                                              "type": "null"
+                                        }
+                                  ],
+                                  "title": "User Id"
+                            },
+                            "role_id": {
+                                  "anyOf": [
+                                        {
+                                              "type": "integer"
+                                        },
+                                        {
+                                              "type": "null"
+                                        }
+                                  ],
+                                  "title": "Role Id"
+                            },
+                            "status": {
+                                  "anyOf": [
+                                        {
+                                              "type": "string",
+                                              "maxLength": 50
+                                        },
+                                        {
+                                              "type": "null"
+                                        }
+                                  ],
+                                  "title": "Status"
+                            }
+                      },
+                      "type": "object",
+                      "title": "SessionUpdate"
+                },
+                "UserCreate": {
+                      "properties": {
+                            "username": {
+                                  "type": "string",
+                                  "title": "Username"
+                            },
+                            "is_admin": {
+                                  "anyOf": [
+                                        {
+                                              "type": "boolean"
+                                        },
+                                        {
+                                              "type": "null"
+                                        }
+                                  ],
+                                  "title": "Is Admin",
+                                  "default": false
+                            },
+                            "name": {
+                                  "anyOf": [
+                                        {
+                                              "type": "string"
+                                        },
+                                        {
+                                              "type": "null"
+                                        }
+                                  ],
+                                  "title": "Name"
+                            },
+                            "surname": {
+                                  "anyOf": [
+                                        {
+                                              "type": "string"
+                                        },
+                                        {
+                                              "type": "null"
+                                        }
+                                  ],
+                                  "title": "Surname"
+                            },
+                            "telegram_id": {
+                                  "type": "integer",
+                                  "title": "Telegram Id"
+                            }
+                      },
+                      "type": "object",
+                      "required": [
+                            "username",
+                            "telegram_id"
+                      ],
+                      "title": "UserCreate"
+                },
+                "UserSchema": {
+                      "properties": {
+                            "username": {
+                                  "type": "string",
+                                  "title": "Username"
+                            },
+                            "is_admin": {
+                                  "anyOf": [
+                                        {
+                                              "type": "boolean"
+                                        },
+                                        {
+                                              "type": "null"
+                                        }
+                                  ],
+                                  "title": "Is Admin",
+                                  "default": false
+                            },
+                            "name": {
+                                  "anyOf": [
+                                        {
+                                              "type": "string"
+                                        },
+                                        {
+                                              "type": "null"
+                                        }
+                                  ],
+                                  "title": "Name"
+                            },
+                            "surname": {
+                                  "anyOf": [
+                                        {
+                                              "type": "string"
+                                        },
+                                        {
+                                              "type": "null"
+                                        }
+                                  ],
+                                  "title": "Surname"
+                            },
+                            "telegram_id": {
+                                  "type": "integer",
+                                  "title": "Telegram Id"
+                            },
+                            "created_at": {
+                                  "type": "string",
+                                  "format": "date-time",
+                                  "title": "Created At"
+                            }
+                      },
+                      "type": "object",
+                      "required": [
+                            "username",
+                            "telegram_id",
+                            "created_at"
+                      ],
+                      "title": "UserSchema"
+                },
+                "UserUpdate": {
+                      "properties": {
+                            "username": {
+                                  "type": "string",
+                                  "title": "Username"
+                            },
+                            "is_admin": {
+                                  "anyOf": [
+                                        {
+                                              "type": "boolean"
+                                        },
+                                        {
+                                              "type": "null"
+                                        }
+                                  ],
+                                  "title": "Is Admin",
+                                  "default": false
+                            },
+                            "name": {
+                                  "anyOf": [
+                                        {
+                                              "type": "string"
+                                        },
+                                        {
+                                              "type": "null"
+                                        }
+                                  ],
+                                  "title": "Name"
+                            },
+                            "surname": {
+                                  "anyOf": [
+                                        {
+                                              "type": "string"
+                                        },
+                                        {
+                                              "type": "null"
+                                        }
+                                  ],
+                                  "title": "Surname"
+                            },
+                            "telegram_id": {
+                                  "type": "integer",
+                                  "title": "Telegram Id"
+                            }
+                      },
+                      "type": "object",
+                      "required": [
+                            "username",
+                            "telegram_id"
+                      ],
+                      "title": "UserUpdate"
+                },
+                "ValidationError": {
+                      "properties": {
+                            "loc": {
+                                  "items": {
+                                        "anyOf": [
+                                              {
+                                                    "type": "string"
+                                              },
+                                              {
+                                                    "type": "integer"
+                                              }
+                                        ]
+                                  },
+                                  "type": "array",
+                                  "title": "Location"
+                            },
+                            "msg": {
+                                  "type": "string",
+                                  "title": "Message"
+                            },
+                            "type": {
+                                  "type": "string",
+                                  "title": "Error Type"
+                            }
+                      },
+                      "type": "object",
+                      "required": [
+                            "loc",
+                            "msg",
+                            "type"
+                      ],
+                      "title": "ValidationError"
+                }
+          }
+    }
+
+}
