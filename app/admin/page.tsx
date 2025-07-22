@@ -45,7 +45,14 @@ export default function AdminPage() {
                   <h3 className="text-lg font-semibold mb-2">Users:</h3>
                   <ul>
                     {users.map((user) => (
-                      <li key={user.id}>{user.email}</li>
+                      <li key={user.telegram_id} className="mb-2 p-2 border rounded">
+                        <p><strong>Username:</strong> {user.username}</p>
+                        <p><strong>Name:</strong> {user.name || 'N/A'}</p>
+                        <p><strong>Surname:</strong> {user.surname || 'N/A'}</p>
+                        <p><strong>Telegram ID:</strong> {user.telegram_id}</p>
+                        <p><strong>Admin:</strong> {user.is_admin ? 'Yes' : 'No'}</p>
+                        <p><strong>Created At:</strong> {new Date(user.created_at).toLocaleDateString()}</p>
+                      </li>
                     ))}
                   </ul>
                 </div>

@@ -44,8 +44,10 @@ export default function RolesPage() {
     try {
       const roleData: RoleCreate = {
         name: editingRole.name,
-        description: editingRole.description || "",
-        role_prompt: editingRole.role_prompt || "",
+        display_name: editingRole.display_name || "", 
+        system_prompt: editingRole.system_prompt || "",
+        elevenlabs_voice_id: editingRole.elevenlabs_voice_id || "",
+        did_avatar_id: editingRole.did_avatar_id || "",
       };
       
       await RolesService.createRoleRolesPost(adminPassword, roleData);
@@ -64,8 +66,13 @@ export default function RolesPage() {
     try {
       const roleData: RoleUpdate = {
         name: editingRole.name,
-        description: editingRole.description || "",
-        role_prompt: editingRole.role_prompt || "",
+        // Changed from description to display_name
+        display_name: editingRole.display_name || "",
+        // Changed from role_prompt to system_prompt
+        system_prompt: editingRole.system_prompt || "",
+        // Add other required fields if they are part of RoleUpdate and not handled by the UI
+        elevenlabs_voice_id: editingRole.elevenlabs_voice_id || "",
+        did_avatar_id: editingRole.did_avatar_id || "",
       };
       
       await RolesService.updateRoleRolesRoleIdPut(roleId, adminPassword, roleData);
@@ -97,11 +104,14 @@ export default function RolesPage() {
   const startCreating = () => {
     setEditingRole({
       name: "",
-      description: "",
-      role_prompt: "",
-      id: 0,
-      created_at: "",
-      updated_at: "",
+      // Changed from description to display_name
+      display_name: "",
+      // Changed from role_prompt to system_prompt
+      system_prompt: "",
+      elevenlabs_voice_id: "", // Initialize new fields
+      did_avatar_id: "", // Initialize new fields
+      id: 0, // id is required by RoleResponse, but might be auto-generated for creation
+      // Removed created_at and updated_at as they are not in RoleResponse schema
     });
     setIsCreating(true);
   };
@@ -151,9 +161,10 @@ export default function RolesPage() {
                   <TableHeader>
                     <TableRow>
                       <TableHead>Name</TableHead>
-                      <TableHead>Description</TableHead>
-                      <TableHead>Role Prompt</TableHead>
-                      <TableHead>Created At</TableHead>
+          
+                      <TableHead>Display Name</TableHead>
+
+                      <TableHead>System Prompt</TableHead>
                       <TableHead>Actions</TableHead>
                     </TableRow>
                   </TableHeader>
@@ -169,19 +180,21 @@ export default function RolesPage() {
                         </TableCell>
                         <TableCell>
                           <Input
-                            value={editingRole?.description || ""}
-                            onChange={(e) => setEditingRole(prev => prev ? {...prev, description: e.target.value} : null)}
-                            placeholder="Description"
+            
+                            value={editingRole?.display_name || ""}
+                            onChange={(e) => setEditingRole(prev => prev ? {...prev, display_name: e.target.value} : null)}
+                            placeholder="Display Name"
                           />
                         </TableCell>
                         <TableCell>
                           <Input
-                            value={editingRole?.role_prompt || ""}
-                            onChange={(e) => setEditingRole(prev => prev ? {...prev, role_prompt: e.target.value} : null)}
-                            placeholder="Role prompt"
+                      
+                            value={editingRole?.system_prompt || ""}
+                            onChange={(e) => setEditingRole(prev => prev ? {...prev, system_prompt: e.target.value} : null)}
+                            placeholder="System Prompt"
                           />
                         </TableCell>
-                        <TableCell>-</TableCell>
+              
                         <TableCell>
                           <div className="flex gap-2">
                             <Button size="sm" onClick={handleCreate}>
@@ -209,26 +222,28 @@ export default function RolesPage() {
                         <TableCell>
                           {editingRole && editingRole.id === role.id && !isCreating ? (
                             <Input
-                              value={editingRole.description || ""}
-                              onChange={(e) => setEditingRole({...editingRole, description: e.target.value})}
+                              // Changed from description to display_name
+                              value={editingRole.display_name || ""}
+                              onChange={(e) => setEditingRole({...editingRole, display_name: e.target.value})}
                             />
                           ) : (
-                            role.description || "-"
+                            // Changed from description to display_name
+                            role.display_name || "-"
                           )}
                         </TableCell>
                         <TableCell className="max-w-xs truncate">
                           {editingRole && editingRole.id === role.id && !isCreating ? (
                             <Input
-                              value={editingRole.role_prompt || ""}
-                              onChange={(e) => setEditingRole({...editingRole, role_prompt: e.target.value})}
+                              // Changed from role_prompt to system_prompt
+                              value={editingRole.system_prompt || ""}
+                              onChange={(e) => setEditingRole({...editingRole, system_prompt: e.target.value})}
                             />
                           ) : (
-                            role.role_prompt || "-"
+                            // Changed from role_prompt to system_prompt
+                            role.system_prompt || "-"
                           )}
                         </TableCell>
-                        <TableCell>
-                          {new Date(role.created_at).toLocaleDateString()}
-                        </TableCell>
+                        {/* Removed corresponding TableCell for Created At */}
                         <TableCell>
                           {editingRole && editingRole.id === role.id && !isCreating ? (
                             <div className="flex gap-2">

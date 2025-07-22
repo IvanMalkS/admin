@@ -19,9 +19,9 @@ export type OpenAPIConfig = {
     ENCODE_PATH?: ((path: string) => string) | undefined;
 };
 
-export const OpenAPI: OpenAPIConfig = {
-    BASE: '',
-    VERSION: '0.1.0',
+export const OpenAPI = {
+    BASE:  'http://127.0.0.1:8080',
+    VERSION: '1.0.0',
     WITH_CREDENTIALS: false,
     CREDENTIALS: 'include',
     TOKEN: undefined,
