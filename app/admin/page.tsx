@@ -13,7 +13,7 @@ export default function AdminPage() {
     const fetchUsers = async () => {
       try {
         setLoading(true);
-        const response = await UsersService.readUsersUsersGet();
+        const response = await UsersService.listUsersUsersGet();
         setUsers(response);
       } catch (err) {
         setError("Failed to fetch users.");
