@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 
 import Link from "next/link";
-import {  Home, LineChart, Package, Package2, ShoppingCart, Users, Search, CircleUser } from "lucide-react";
+import {  Home, LineChart, Package, Package2, ShoppingCart, Users, Search, CircleUser, CircleQuestionMark, Brain } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -30,7 +30,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
                 <Link href="/" className="flex items-center gap-2 font-semibold">
                   <Package2 className="h-6 w-6" />
-                  <span className="">AI-Avatar Admin</span>
+                  <span className="">Админ панель</span>
                 </Link>
 
               </div>
@@ -42,28 +42,28 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
                   >
                     <Users className="h-4 w-4" />
-                    Users
+                    Пользователи
                   </Link>
                   <Link
                     href="/roles"
                     className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
                   >
-                    <Package className="h-4 w-4" />
-                    Roles
+                    <Brain className="h-4 w-4" />
+                    Роли
                   </Link>
                   <Link
                     href="/faqs"
                     className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
                   >
-                    <ShoppingCart className="h-4 w-4" />
-                    FAQs
+                    <CircleQuestionMark className="h-4 w-4" />
+                    FAQ
                   </Link>
                   <Link
                     href="/sessions"
                     className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
                   >
                     <LineChart className="h-4 w-4" />
-                    Sessions
+                    Сессии
                   </Link>
                 </nav>
               </div>
@@ -80,7 +80,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     className="shrink-0 md:hidden"
                   >
                     <Package2 className="h-5 w-5" />
-                    <span className="sr-only">Toggle navigation menu</span>
+                    <span className="sr-only">Переключить меню навигации</span>
                   </Button>
                 </SheetTrigger>
                 <SheetContent side="left" className="flex flex-col">
@@ -97,14 +97,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                       className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
                     >
                       <Home className="h-5 w-5" />
-                      Dashboard
+                      Панель управления
                     </Link>
                     <Link
                       href="/orders"
                       className="mx-[-0.65rem] flex items-center gap-4 rounded-xl bg-muted px-3 py-2 text-foreground hover:text-foreground"
                     >
                       <ShoppingCart className="h-5 w-5" />
-                      Orders
+                      Заказы
                       <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
                         6
                       </Badge>
@@ -114,21 +114,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                       className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
                     >
                       <Package className="h-5 w-5" />
-                      Products
+                      Продукты
                     </Link>
                     <Link
                       href="/customers"
                       className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
                     >
                       <Users className="h-5 w-5" />
-                      Customers
+                      Клиенты
                     </Link>
                     <Link
                       href="/analytics"
                       className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
                     >
                       <LineChart className="h-5 w-5" />
-                      Analytics
+                      Аналитика
                     </Link>
                   </nav>
                 </SheetContent>

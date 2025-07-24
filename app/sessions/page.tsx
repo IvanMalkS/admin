@@ -17,7 +17,7 @@ export default function SessionsPage() {
       const response = await SessionsService.listSessionsSessionsGet();
       setSessions(response);
     } catch (err) {
-      setError("Failed to fetch sessions.");
+      setError("Не удалось загрузить сессии.");
       console.error(err);
     } finally {
       setLoading(false);
@@ -34,26 +34,26 @@ export default function SessionsPage() {
         <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
           <Card>
             <CardHeader>
-              <CardTitle>Session Management</CardTitle>
+              <CardTitle>Управление сессиями</CardTitle>
               <CardDescription>
-                View active and past user sessions with AI assistants.
+                Просмотр активных и прошлых пользовательских сессий с AI-помощниками.
               </CardDescription>
             </CardHeader>
             <CardContent>
               {error && <p className="text-red-500 mb-4">{error}</p>}
 
               {loading ? (
-                <p>Loading sessions...</p>
+                <p>Загрузка сессий...</p>
               ) : (
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Session ID</TableHead>
-                      <TableHead>User ID</TableHead>
-                      <TableHead>Role ID</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead>Created At</TableHead>
-                      <TableHead>Updated At</TableHead>
+                      <TableHead>ID сессии</TableHead>
+                      <TableHead>ID пользователя</TableHead>
+                      <TableHead>ID роли</TableHead>
+                      <TableHead>Статус</TableHead>
+                      <TableHead>Создано</TableHead>
+                      <TableHead>Обновлено</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -68,7 +68,7 @@ export default function SessionsPage() {
                               ? 'bg-green-100 text-green-800' 
                               : 'bg-gray-100 text-gray-800'
                           }`}>
-                            {session.status}
+                            {session.status === 'active' ? 'активно' : session.status}
                           </span>
                         </TableCell>
                         <TableCell>

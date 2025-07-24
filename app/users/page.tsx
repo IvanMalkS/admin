@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { UsersService, UserSchema, UserCreate, UserUpdate } from "@/lib/api";
 import { Pencil, Trash2, Plus, Save, X } from "lucide-react";
 
-// Define an extended UserSchema for editing purposes, allowing 'id' to be optional for new users
+
 interface EditingUser extends UserSchema {
   id?: number;
 }
@@ -24,11 +24,10 @@ export default function UsersPage() {
   const fetchUsers = async () => {
     try {
       setLoading(true);
-      // Assuming listUsersUsersGet is the correct method to fetch users
       const response = await UsersService.listUsersUsersGet();
       setUsers(response);
     } catch (err) {
-      setError("Failed to fetch users.");
+      setError("Не удалось загрузить пользователей.");
       console.error(err);
     } finally {
       setLoading(false);
@@ -41,7 +40,7 @@ export default function UsersPage() {
 
   const handleCreate = async () => {
     if (!editingUser || !adminPassword) {
-      setError("All fields and admin password are required to create a user.");
+      setError("Все поля и пароль администратора обязательны для создания пользователя.");
       return;
     }
     
@@ -49,25 +48,25 @@ export default function UsersPage() {
       const userData: UserCreate = {
         username: editingUser.username,
         is_admin: editingUser.is_admin,
-        name: editingUser.name || null, // Name can be null
-        surname: editingUser.surname || null, // Surname can be null
+        name: editingUser.name || null,
+        surname: editingUser.surname || null, 
         telegram_id: editingUser.telegram_id,
       };
       
-      // Assuming createUserUsersPost is the correct method to create a user
-      await UsersService.createUserUsersPost(userData); // Admin password might not be needed here based on openapi.json
+
+      await UsersService.createUserUsersPost(userData);
       await fetchUsers();
       setIsCreating(false);
       setEditingUser(null);
     } catch (err) {
-      setError("Failed to create user.");
+      setError("Не удалось создать пользователя.");
       console.error(err);
     }
   };
 
   const handleUpdate = async (userId: number) => {
     if (!editingUser || !adminPassword) {
-      setError("All fields and admin password are required to update a user.");
+      setError("Все поля и пароль администратора обязательны для обновления пользователя.");
       return;
     }
     
@@ -80,30 +79,28 @@ export default function UsersPage() {
         telegram_id: editingUser.telegram_id,
       };
       
-      // Assuming updateUserUsersUserIdPut is the correct method to update a user
       await UsersService.updateUserUsersUserIdPut(userId, adminPassword, userData);
       await fetchUsers();
       setEditingUser(null);
     } catch (err) {
-      setError("Failed to update user.");
+      setError("Не удалось обновить пользователя.");
       console.error(err);
     }
   };
 
   const handleDelete = async (userId: number) => {
     if (!adminPassword) {
-      setError("Admin password required for deletion.");
+      setError("Требуется пароль администратора для удаления.");
       return;
     }
     
-    if (!confirm("Are you sure you want to delete this user?")) return;
+    if (!confirm("Вы уверены, что хотите удалить этого пользователя?")) return;
     
     try {
-      // Assuming deleteUserUsersUserIdDelete is the correct method to delete a user
       await UsersService.deleteUserUsersUserIdDelete(userId, adminPassword);
       await fetchUsers();
     } catch (err) {
-      setError("Failed to delete user.");
+      setError("Не удалось удалить пользователя.");
       console.error(err);
     }
   };
@@ -115,9 +112,9 @@ export default function UsersPage() {
       name: null,
       surname: null,
       telegram_id: 0,
-      id: 0, // Temporary ID for UI, actual ID will be assigned by backend
-      created_at: new Date().toISOString(), // Placeholder
-      updated_at: new Date().toISOString(), // Placeholder
+      id: 0,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
     });
     setIsCreating(true);
   };
@@ -138,41 +135,41 @@ export default function UsersPage() {
         <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
           <Card>
             <CardHeader>
-              <CardTitle>User Management</CardTitle>
+              <CardTitle>Управление пользователями</CardTitle>
               <CardDescription>
-                Manage application users and their roles.
+                Управляйте пользователями приложения и их ролями.
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="flex gap-4 mb-4">
                 <Input
                   type="password"
-                  placeholder="Admin password"
+                  placeholder="Пароль администратора"
                   value={adminPassword}
                   onChange={(e) => setAdminPassword(e.target.value)}
                   className="w-64"
                 />
                 <Button onClick={startCreating} disabled={isCreating}>
                   <Plus className="h-4 w-4 mr-2" />
-                  Add User
+                  Добавить пользователя
                 </Button>
               </div>
 
               {error && <p className="text-red-500 mb-4">{error}</p>}
 
               {loading ? (
-                <p>Loading users...</p>
+                <p>Загрузка пользователей...</p>
               ) : (
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Username</TableHead>
-                      <TableHead>Name</TableHead>
-                      <TableHead>Surname</TableHead>
-                      <TableHead>Telegram ID</TableHead>
-                      <TableHead>Admin</TableHead>
-                      <TableHead>Created At</TableHead>
-                      <TableHead>Actions</TableHead>
+                      <TableHead>Имя пользователя</TableHead>
+                      <TableHead>Имя</TableHead>
+                      <TableHead>Фамилия</TableHead>
+                      <TableHead>ID Telegram</TableHead>
+                      <TableHead>Админ</TableHead>
+                      <TableHead>Дата создания</TableHead>
+                      <TableHead>Действия</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -182,21 +179,21 @@ export default function UsersPage() {
                           <Input
                             value={editingUser?.username || ""}
                             onChange={(e) => setEditingUser(prev => prev ? {...prev, username: e.target.value} : null)}
-                            placeholder="Username"
+                            placeholder="Имя пользователя"
                           />
                         </TableCell>
                         <TableCell>
                           <Input
                             value={editingUser?.name || ""}
                             onChange={(e) => setEditingUser(prev => prev ? {...prev, name: e.target.value} : null)}
-                            placeholder="Name"
+                            placeholder="Имя"
                           />
                         </TableCell>
                         <TableCell>
                           <Input
                             value={editingUser?.surname || ""}
                             onChange={(e) => setEditingUser(prev => prev ? {...prev, surname: e.target.value} : null)}
-                            placeholder="Surname"
+                            placeholder="Фамилия"
                           />
                         </TableCell>
                         <TableCell>
@@ -204,7 +201,7 @@ export default function UsersPage() {
                             type="number"
                             value={editingUser?.telegram_id || 0}
                             onChange={(e) => setEditingUser(prev => prev ? {...prev, telegram_id: parseInt(e.target.value) || 0} : null)}
-                            placeholder="Telegram ID"
+                            placeholder="ID Telegram"
                           />
                         </TableCell>
                         <TableCell>
@@ -280,7 +277,7 @@ export default function UsersPage() {
                               className="h-4 w-4"
                             />
                           ) : (
-                            user.is_admin ? "Yes" : "No"
+                            user.is_admin ? "Да" : "Нет"
                           )}
                         </TableCell>
                         <TableCell>

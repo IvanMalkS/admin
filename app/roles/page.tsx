@@ -27,7 +27,7 @@ export default function RolesPage() {
       const response = await RolesService.listRolesRolesGet();
       setRoles(response);
     } catch (err) {
-      setError("Failed to fetch roles.");
+      setError("Не удалось загрузить роли.");
       console.error(err);
     } finally {
       setLoading(false);
@@ -39,7 +39,10 @@ export default function RolesPage() {
   }, []);
 
   const handleCreate = async () => {
-    if (!editingRole || !adminPassword) return;
+    if (!editingRole || !adminPassword) {
+      setError("Все поля и пароль администратора обязательны для создания роли.");
+      return;
+    }
     
     try {
       const roleData: RoleCreate = {
@@ -55,22 +58,22 @@ export default function RolesPage() {
       setIsCreating(false);
       setEditingRole(null);
     } catch (err) {
-      setError("Failed to create role.");
+      setError("Не удалось создать роль.");
       console.error(err);
     }
   };
 
   const handleUpdate = async (roleId: number) => {
-    if (!editingRole || !adminPassword) return;
+    if (!editingRole || !adminPassword) {
+      setError("Все поля и пароль администратора обязательны для обновления роли.");
+      return;
+    }
     
     try {
       const roleData: RoleUpdate = {
         name: editingRole.name,
-        // Changed from description to display_name
         display_name: editingRole.display_name || "",
-        // Changed from role_prompt to system_prompt
         system_prompt: editingRole.system_prompt || "",
-        // Add other required fields if they are part of RoleUpdate and not handled by the UI
         elevenlabs_voice_id: editingRole.elevenlabs_voice_id || "",
         did_avatar_id: editingRole.did_avatar_id || "",
       };
@@ -79,24 +82,24 @@ export default function RolesPage() {
       await fetchRoles();
       setEditingRole(null);
     } catch (err) {
-      setError("Failed to update role.");
+      setError("Не удалось обновить роль.");
       console.error(err);
     }
   };
 
   const handleDelete = async (roleId: number) => {
     if (!adminPassword) {
-      setError("Admin password required for deletion.");
+      setError("Требуется пароль администратора для удаления.");
       return;
     }
     
-    if (!confirm("Are you sure you want to delete this role?")) return;
+    if (!confirm("Вы уверены, что хотите удалить эту роль?")) return;
     
     try {
       await RolesService.deleteRoleRolesRoleIdDelete(roleId, adminPassword);
       await fetchRoles();
     } catch (err) {
-      setError("Failed to delete role.");
+      setError("Не удалось удалить роль.");
       console.error(err);
     }
   };
@@ -104,14 +107,11 @@ export default function RolesPage() {
   const startCreating = () => {
     setEditingRole({
       name: "",
-      // Changed from description to display_name
       display_name: "",
-      // Changed from role_prompt to system_prompt
       system_prompt: "",
-      elevenlabs_voice_id: "", // Initialize new fields
-      did_avatar_id: "", // Initialize new fields
-      id: 0, // id is required by RoleResponse, but might be auto-generated for creation
-      // Removed created_at and updated_at as they are not in RoleResponse schema
+      elevenlabs_voice_id: "",
+      did_avatar_id: "",
+      id: 0,
     });
     setIsCreating(true);
   };
@@ -132,40 +132,40 @@ export default function RolesPage() {
         <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
           <Card>
             <CardHeader>
-              <CardTitle>Role Management</CardTitle>
+              <CardTitle>Управление ролями</CardTitle>
               <CardDescription>
-                Manage AI roles and their prompts for different conversation types.
+                Управляйте ролями AI и их подсказками для различных типов разговоров.
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="flex gap-4 mb-4">
                 <Input
                   type="password"
-                  placeholder="Admin password"
+                  placeholder="Пароль администратора"
                   value={adminPassword}
                   onChange={(e) => setAdminPassword(e.target.value)}
                   className="w-64"
                 />
                 <Button onClick={startCreating} disabled={isCreating}>
                   <Plus className="h-4 w-4 mr-2" />
-                  Add Role
+                  Добавить роль
                 </Button>
               </div>
 
               {error && <p className="text-red-500 mb-4">{error}</p>}
 
               {loading ? (
-                <p>Loading roles...</p>
+                <p>Загрузка ролей...</p>
               ) : (
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Name</TableHead>
+                      <TableHead>Имя</TableHead>
           
-                      <TableHead>Display Name</TableHead>
+                      <TableHead>Отображаемое имя</TableHead>
 
-                      <TableHead>System Prompt</TableHead>
-                      <TableHead>Actions</TableHead>
+                      <TableHead>Системная подсказка</TableHead>
+                      <TableHead>Действия</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -175,7 +175,7 @@ export default function RolesPage() {
                           <Input
                             value={editingRole?.name || ""}
                             onChange={(e) => setEditingRole(prev => prev ? {...prev, name: e.target.value} : null)}
-                            placeholder="Role name"
+                            placeholder="Имя роли"
                           />
                         </TableCell>
                         <TableCell>
@@ -183,7 +183,7 @@ export default function RolesPage() {
             
                             value={editingRole?.display_name || ""}
                             onChange={(e) => setEditingRole(prev => prev ? {...prev, display_name: e.target.value} : null)}
-                            placeholder="Display Name"
+                            placeholder="Отображаемое имя"
                           />
                         </TableCell>
                         <TableCell>
@@ -191,10 +191,9 @@ export default function RolesPage() {
                       
                             value={editingRole?.system_prompt || ""}
                             onChange={(e) => setEditingRole(prev => prev ? {...prev, system_prompt: e.target.value} : null)}
-                            placeholder="System Prompt"
+                            placeholder="Системная подсказка"
                           />
                         </TableCell>
-              
                         <TableCell>
                           <div className="flex gap-2">
                             <Button size="sm" onClick={handleCreate}>
@@ -222,28 +221,24 @@ export default function RolesPage() {
                         <TableCell>
                           {editingRole && editingRole.id === role.id && !isCreating ? (
                             <Input
-                              // Changed from description to display_name
                               value={editingRole.display_name || ""}
                               onChange={(e) => setEditingRole({...editingRole, display_name: e.target.value})}
                             />
                           ) : (
-                            // Changed from description to display_name
                             role.display_name || "-"
                           )}
                         </TableCell>
                         <TableCell className="max-w-xs truncate">
                           {editingRole && editingRole.id === role.id && !isCreating ? (
                             <Input
-                              // Changed from role_prompt to system_prompt
                               value={editingRole.system_prompt || ""}
                               onChange={(e) => setEditingRole({...editingRole, system_prompt: e.target.value})}
                             />
                           ) : (
-                            // Changed from role_prompt to system_prompt
+                      
                             role.system_prompt || "-"
                           )}
                         </TableCell>
-                        {/* Removed corresponding TableCell for Created At */}
                         <TableCell>
                           {editingRole && editingRole.id === role.id && !isCreating ? (
                             <div className="flex gap-2">

@@ -1,66 +1,78 @@
-"use client";
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { useEffect, useState } from "react";
-import { UsersService, UserSchema } from "@/lib/api";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function AdminPage() {
-  const [users, setUsers] = useState<UserSchema[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        setLoading(true);
-        const response = await UsersService.listUsersUsersGet();
-        setUsers(response);
-      } catch (err) {
-        setError("Failed to fetch users.");
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchUsers();
-  }, []);
-
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
       <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
         <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
-          <Card x-chunk="dashboard-07-chunk-0">
+          <Card className="mb-6">
             <CardHeader>
-              <CardTitle>Admin Dashboard</CardTitle>
-              <CardDescription>
-                Welcome to the admin dashboard. Here you can manage users, roles, and other settings.
+              <CardTitle className="text-3xl font-bold">Добро пожаловать в панель администратора</CardTitle>
+              <CardDescription className="text-lg text-muted-foreground">
+                Управляйте пользователями, ролями, сессиями и часто задаваемыми вопросами вашего приложения.
               </CardDescription>
             </CardHeader>
-            <CardContent>
-              {loading && <p>Loading users...</p>}
-              {error && <p className="text-red-500">{error}</p>}
-              {!loading && !error && (users.length > 0 ? (
-                <div>
-                  <h3 className="text-lg font-semibold mb-2">Users:</h3>
-                  <ul>
-                    {users.map((user) => (
-                      <li key={user.telegram_id} className="mb-2 p-2 border rounded">
-                        <p><strong>Username:</strong> {user.username}</p>
-                        <p><strong>Name:</strong> {user.name || 'N/A'}</p>
-                        <p><strong>Surname:</strong> {user.surname || 'N/A'}</p>
-                        <p><strong>Telegram ID:</strong> {user.telegram_id}</p>
-                        <p><strong>Admin:</strong> {user.is_admin ? 'Yes' : 'No'}</p>
-                        <p><strong>Created At:</strong> {new Date(user.created_at).toLocaleDateString()}</p>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ) : (
-                <p>No users found.</p>
-              ))}
-            </CardContent>
           </Card>
+
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            <Card className="flex flex-col">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-xl">Управление пользователями</CardTitle>
+                <CardDescription>
+                  Просмотр и редактирование информации о пользователях.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="flex-1 flex flex-col">
+                <Link href="/users" className="mt-auto">
+                  <Button className="w-full">Перейти</Button>
+                </Link>
+              </CardContent>
+            </Card>
+
+            <Card className="flex flex-col">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-xl">Управление ролями</CardTitle>
+                <CardDescription>
+                  Настройка ролей AI и их системных подсказок.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="flex-1 flex flex-col">
+                <Link href="/roles" className="mt-auto">
+                  <Button className="w-full">Перейти</Button>
+                </Link>
+              </CardContent>
+            </Card>
+
+            <Card className="flex flex-col">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-xl">Управление сессиями</CardTitle>
+                <CardDescription>
+                  Мониторинг активных и прошлых сессий пользователей.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="flex-1 flex flex-col">
+                <Link href="/sessions" className="mt-auto">
+                  <Button className="w-full">Перейти</Button>
+                </Link>
+              </CardContent>
+            </Card>
+
+            <Card className="flex flex-col">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-xl">Управление FAQ</CardTitle>
+                <CardDescription>
+                  Добавление, изменение и удаление часто задаваемых вопросов.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="flex-1 flex flex-col">
+                <Link href="/faqs" className="mt-auto">
+                  <Button className="w-full">Перейти</Button>
+                </Link>
+              </CardContent>
+            </Card>
+          </div>
         </main>
       </div>
     </div>
