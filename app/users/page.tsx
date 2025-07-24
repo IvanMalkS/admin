@@ -212,7 +212,7 @@ export default function UsersPage() {
                             className="h-4 w-4"
                           />
                         </TableCell>
-                        <TableCell>-</TableCell> {/* Created At for new user */}
+                        <TableCell>-</TableCell>
                         <TableCell>
                           <div className="flex gap-2">
                             <Button size="sm" onClick={handleCreate}>
@@ -226,9 +226,9 @@ export default function UsersPage() {
                       </TableRow>
                     )}
                     {users.map((user) => (
-                      <TableRow key={user.id}>
+                      <TableRow key={user.telegram_id}>
                         <TableCell>
-                          {editingUser && editingUser.id === user.id && !isCreating ? (
+                          {editingUser && editingUser.id === user.telegram_id && !isCreating ? (
                             <Input
                               value={editingUser.username}
                               onChange={(e) => setEditingUser({...editingUser, username: e.target.value})}
@@ -238,7 +238,7 @@ export default function UsersPage() {
                           )}
                         </TableCell>
                         <TableCell>
-                          {editingUser && editingUser.id === user.id && !isCreating ? (
+                          {editingUser && editingUser.id === user.telegram_id && !isCreating ? (
                             <Input
                               value={editingUser.name || ""}
                               onChange={(e) => setEditingUser({...editingUser, name: e.target.value})}
@@ -248,7 +248,7 @@ export default function UsersPage() {
                           )}
                         </TableCell>
                         <TableCell>
-                          {editingUser && editingUser.id === user.id && !isCreating ? (
+                          {editingUser && editingUser.id === user.telegram_id && !isCreating ? (
                             <Input
                               value={editingUser.surname || ""}
                               onChange={(e) => setEditingUser({...editingUser, surname: e.target.value})}
@@ -258,7 +258,7 @@ export default function UsersPage() {
                           )}
                         </TableCell>
                         <TableCell>
-                          {editingUser && editingUser.id === user.id && !isCreating ? (
+                          {editingUser && editingUser.id === user.telegram_id && !isCreating ? (
                             <Input
                               type="number"
                               value={editingUser.telegram_id}
@@ -269,7 +269,7 @@ export default function UsersPage() {
                           )}
                         </TableCell>
                         <TableCell>
-                          {editingUser && editingUser.id === user.id && !isCreating ? (
+                          {editingUser && editingUser.id === user.telegram_id && !isCreating ? (
                             <input
                               type="checkbox"
                               checked={editingUser.is_admin}
@@ -284,9 +284,9 @@ export default function UsersPage() {
                           {new Date(user.created_at).toLocaleDateString()}
                         </TableCell>
                         <TableCell>
-                          {editingUser && editingUser.id === user.id && !isCreating ? (
+                          {editingUser && editingUser.id === user.telegram_id && !isCreating ? (
                             <div className="flex gap-2">
-                              <Button size="sm" onClick={() => handleUpdate(user.id)}>
+                              <Button size="sm" onClick={() => handleUpdate(user.telegram_id)}>
                                 <Save className="h-4 w-4" />
                               </Button>
                               <Button size="sm" variant="outline" onClick={cancelEditing}>
@@ -298,7 +298,7 @@ export default function UsersPage() {
                               <Button size="sm" variant="outline" onClick={() => startEditing(user)}>
                                 <Pencil className="h-4 w-4" />
                               </Button>
-                              <Button size="sm" variant="destructive" onClick={() => handleDelete(user.id)}>
+                              <Button size="sm" variant="destructive" onClick={() => handleDelete(user.telegram_id)}>
                                 <Trash2 className="h-4 w-4" />
                               </Button>
                             </div>

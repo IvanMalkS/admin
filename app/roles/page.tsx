@@ -10,7 +10,7 @@ import { RolesService, RoleResponse, RoleCreate, RoleUpdate } from "@/lib/api";
 import { Pencil, Trash2, Plus, Save, X } from "lucide-react";
 
 interface EditingRole extends RoleResponse {
-  id?: number;
+  id: number;
 }
 
 export default function RolesPage() {

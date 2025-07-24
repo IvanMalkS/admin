@@ -10,7 +10,7 @@ import { FaQsService, FAQResponse, FAQCreate, FAQUpdate } from "@/lib/api";
 import { Pencil, Trash2, Plus, Save, X } from "lucide-react";
 
 interface EditingFAQ extends FAQResponse {
-  id?: number;
+  id: number;
 }
 
 export default function FAQsPage() {
@@ -72,7 +72,7 @@ export default function FAQsPage() {
         answer: editingFaq.answer,
       };
       
-      await FaQsService.updateFaqFaqsIdPut(faqId, adminPassword, faqData);
+      await FaQsService.updateFaqFaqsFaqIdPut(faqId, adminPassword, faqData);
       await fetchFaqs();
       setEditingFaq(null);
     } catch (err) {
@@ -90,7 +90,7 @@ export default function FAQsPage() {
     if (!confirm("Вы уверены, что хотите удалить этот часто задаваемый вопрос?")) return;
     
     try {
-      await FaQsService.deleteFaqFaqsIdDelete(faqId, adminPassword);
+      await FaQsService.deleteFaqFaqsFaqIdDelete(faqId, adminPassword);
       await fetchFaqs();
     } catch (err) {
       setError("Не удалось удалить часто задаваемый вопрос.");
