@@ -102,9 +102,7 @@ export default function FAQsPage() {
     setEditingFaq({
       question: "",
       answer: "",
-      id: 0,
-      created_at: "",
-      updated_at: "",
+      id: 0
     });
     setIsCreating(true);
   };
@@ -215,9 +213,7 @@ export default function FAQsPage() {
                             </div>
                           )}
                         </TableCell>
-                        <TableCell>
-                          {new Date(faq.created_at).toLocaleDateString()}
-                        </TableCell>
+  
                         <TableCell>
                           {editingFaq && editingFaq.id === faq.id && !isCreating ? (
                             <div className="flex gap-2">

@@ -113,8 +113,8 @@ export default function UsersPage() {
       surname: null,
       telegram_id: 0,
       id: 0,
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
+      created_at: new Date().toISOString()
+
     });
     setIsCreating(true);
   };
@@ -272,7 +272,7 @@ export default function UsersPage() {
                           {editingUser && editingUser.id === user.telegram_id && !isCreating ? (
                             <input
                               type="checkbox"
-                              checked={editingUser.is_admin}
+                              checked={editingUser.is_admin || false}
                               onChange={(e) => setEditingUser({...editingUser, is_admin: e.target.checked})}
                               className="h-4 w-4"
                             />
